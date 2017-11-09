@@ -1,9 +1,9 @@
 <template>
   <div class="col-md-3">
-    <div>
-      <h3>Doing</h3>
+    <div class="utama">
+      <h3>Done</h3>
     </div>
-    <div v-for="data in Doing">
+    <div v-for="data in done">
       <div>
         <table>
           <tr>
@@ -23,7 +23,6 @@
           </tr>
           <tr>
             <td><button type="button" @click="deleting(data['.key'])">Delete</button></td>
-            <td><button type="button" @click="moveToDone(data['.key'], data.title, data.description, data.number)">Done</button> </td>
           </tr>
         </table>
       </div>
@@ -33,29 +32,21 @@
 
 <script>
 export default {
-  name: 'Doing',
+  name: 'Done',
   data () {
     return {}
   },
   firebase: function () {
     return {
-      Doing: this.$db.ref('kanban/doing/')
+      done: this.$db.ref('kanban/done')
     }
   },
   created () {
-    console.log(this.Doing)
+    console.log(this.done)
   },
   methods: {
     deleting (id) {
-      this.$db.ref('kanban/doing/' + id).remove()
-    },
-    moveToDone (id, title, description, number) {
-      this.$db.ref('kanban/done/').push({
-        title: title,
-        description: description,
-        number: number
-      })
-      this.$db.ref('kanban/doing/' + id).remove()
+      this.$db.ref('kanban/done' + id).remove()
     }
   }
 }

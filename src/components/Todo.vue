@@ -1,9 +1,9 @@
 <template>
   <div class="col-md-3">
     <div>
-      <h3>Doing</h3>
+      <h3>Todo</h3>
     </div>
-    <div v-for="data in Doing">
+    <div v-for="data in todos">
       <div>
         <table>
           <tr>
@@ -23,7 +23,7 @@
           </tr>
           <tr>
             <td><button type="button" @click="deleting(data['.key'])">Delete</button></td>
-            <td><button type="button" @click="moveToDone(data['.key'], data.title, data.description, data.number)">Done</button> </td>
+            <td><button type="button" @click="moveToDoing(data['.key'],data.title,data.description,data.points)">Do this task</button></td>
           </tr>
         </table>
       </div>
@@ -33,29 +33,26 @@
 
 <script>
 export default {
-  name: 'Doing',
+  name: 'Todo',
   data () {
     return {}
   },
   firebase: function () {
     return {
-      Doing: this.$db.ref('kanban/doing/')
+      todos: this.$db.ref('kanban/todo/')
     }
-  },
-  created () {
-    console.log(this.Doing)
   },
   methods: {
     deleting (id) {
-      this.$db.ref('kanban/doing/' + id).remove()
+      this.$db.ref('kanban/todo/' + id).remove()
     },
-    moveToDone (id, title, description, number) {
-      this.$db.ref('kanban/done/').push({
+    moveToDoing (id, title, description, number) {
+      this.$db.ref('kanban/doing').push({
         title: title,
         description: description,
         number: number
       })
-      this.$db.ref('kanban/doing/' + id).remove()
+      this.$db.ref('kanban/todo' + id).remove()
     }
   }
 }

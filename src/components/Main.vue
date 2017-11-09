@@ -1,8 +1,11 @@
 <template>
   <div>
-    <Form />
+    <Form></Form>
       <div>
-        <back-log></back-log>
+        <BackLog></BackLog>
+        <Doing></Doing>
+        <Done></Done>
+        <Todo></Todo>
       </div>
   </div>
 </template>
@@ -11,6 +14,8 @@
 import BackLog from '@/components/BackLog'
 import Form from '@/components/Form'
 import Doing from '@/components/Doing'
+import Done from '@/components/Done'
+import Todo from '@/components/Todo'
 export default {
   name: 'HelloWorld',
   data () {
@@ -20,7 +25,9 @@ export default {
   components: {
     Form,
     BackLog,
-    Doing
+    Doing,
+    Done,
+    Todo
   }
 }
 </script>
